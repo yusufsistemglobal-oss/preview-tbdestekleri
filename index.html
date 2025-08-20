@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sistem Global Sesli Asistan — Gelir Vergisi Beyannamesi</title>
+  <meta name="description" content="Gelir vergisi beyannamesi sürecinde sizinle sesli görüşebilen, akıllı ve hızlı bir asistan." />
+
+  <!-- Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* === STİLLER (hiç değiştirilmedi) === */
+    :root{
+      --bg-carbon: #0f1115;
+      --card-carbon: #151922;
+      --text: #e9eef6;
+      --muted: #b6c2d9;
+      --soft-orange: #ff8a4c;
+      --soft-orange-20: rgba(255, 138, 76, .2);
+      --ring: rgba(255, 138, 76, .35);
+      --white: #ffffff;
+      --grid: rgba(255,255,255,.06);
+    }
+    *{ box-sizing: border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(1200px 600px at 90% -10%, var(--soft-orange-20), transparent 60%),
+        radial-gradient(800px 400px at -10% 10%, rgba(255,255,255,.05), transparent 60%),
+        var(--bg-carbon);
+      overflow-x: hidden;
+    }
+    .grid{position: fixed; inset:0; background-image:linear-gradient(var(--grid) 1px, transparent 1px),linear-gradient(90deg, var(--grid) 1px, transparent 1px);background-size: 36px 36px, 36px 36px;mask-image: radial-gradient(1000px 600px at 50% -10%, rgba(0,0,0,.6), transparent 70%);pointer-events:none;z-index:0;}
+    header{position: relative;z-index: 2;padding: 20px clamp(16px, 4vw, 48px);display: flex;align-items: center;justify-content: space-between;}
+    .brand{display:flex; align-items:center; gap:12px; text-decoration:none; color:var(--text);font-weight:800; letter-spacing:.2px;}
+    .logo{width:36px;height:36px;border-radius:10px;background: conic-gradient(from 210deg, var(--soft-orange), #ffd9c6 30%, #272b35 30%, #272b35 100%);box-shadow: 0 0 0 2px #272b35, 0 8px 30px rgba(0,0,0,.35);}
+    .cta{display:inline-block;padding:12px 18px;border-radius:12px;background: linear-gradient(180deg, var(--soft-orange), #ff7430);color: var(--white);text-decoration:none;font-weight:700;box-shadow: 0 10px 30px rgba(255, 138, 76, .35);transition: transform .12s ease, box-shadow .2s ease, filter .2s ease;border: 1px solid rgba(255,255,255,.08);}
+    .cta:hover{ transform: translateY(-1px); filter: brightness(1.06); }
+    .ghost{background: transparent;border: 1px solid var(--ring);color: var(--text);box-shadow: none;}
+    .container{ max-width: 1200px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 48px); }
+    .hero{position: relative; z-index: 1;display:grid; grid-template-columns: 1.1fr 0.9fr; gap: clamp(20px, 5vw, 56px);align-items:center;padding: clamp(24px, 4vw, 48px) 0 40px;}
+    @media (max-width: 940px){.hero{ grid-template-columns: 1fr; padding-top: 12px; }}
+    .eyebrow{display:inline-flex; align-items:center; gap:10px;padding:6px 10px; border-radius: 999px;border:1px solid var(--ring); background: rgba(255,255,255,.02);font-size: 12px; color: var(--muted);}
+    .pulse{width:8px;height:8px;border-radius:999px;background:var(--soft-orange);box-shadow: 0 0 0 0 var(--soft-orange-20);animation: pulse 1.8s infinite;}
+    @keyframes pulse{0%{ box-shadow: 0 0 0 0 rgba(255,138,76,.5);}70%{ box-shadow: 0 0 0 14px rgba(255,138,76,0);}100%{ box-shadow: 0 0 0 0 rgba(255,138,76,0);}}
+    h1{margin: 18px 0 12px;font-size: clamp(32px, 5vw, 58px);line-height: 1.05;letter-spacing: -0.5px;}
+    .subtitle{color: var(--muted); font-size: clamp(15px, 2.2vw, 18px); line-height:1.6;max-width: 60ch;}
+    .panel{position: relative;background: linear-gradient(180deg, #171b25, #11151c);border: 1px solid rgba(255,255,255,.08);border-radius: 18px;box-shadow: inset 0 1px 0 rgba(255,255,255,.06),0 20px 80px rgba(0,0,0,.45);padding: clamp(16px, 2vw, 22px);}
+    .panel::after{content:"";position:absolute; inset:-1px;border-radius: 18px;pointer-events:none;background:linear-gradient(180deg, rgba(255,255,255,.06), transparent),radial-gradient(600px 120px at 50% -40px, rgba(255,138,76,.25), transparent 60%);mask: linear-gradient(#000, transparent 60%);opacity:.7;}
+    .widget-wrap{display:flex; flex-direction:column; gap:14px;align-items:flex-start; justify-content:center;min-height: 380px;}
+    .widget-actions{ display:flex; gap:10px; flex-wrap: wrap; }
+    .features{display:grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 36px;}
+    @media (max-width: 900px){ .features{ grid-template-columns: 1fr; } }
+    .feature{background: linear-gradient(180deg, #151a22, #121620);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:18px;}
+    .feature h3{ margin: 8px 0 6px; font-size:18px; }
+    .kicker{ color: var(--soft-orange); font-weight: 700; font-size: 12px; letter-spacing: .3px; text-transform: uppercase; }
+    .badgebar{display:flex; gap:10px; flex-wrap: wrap; margin-top:10px;}
+    .badge{padding:6px 10px; border-radius:10px; border:1px solid rgba(255,255,255,.08);background: rgba(255,255,255,.03); color: var(--muted); font-size: 12px;}
+    footer{margin-top: 56px; padding: 24px 0 52px; color: var(--muted); font-size: 13px;border-top: 1px dashed rgba(255,255,255,.08);}
+    .uline{background:linear-gradient(transparent 65%, rgba(255,138,76,.25) 0) no-repeat;background-size: 100% 100%;padding: 0 .2rem;border-radius: 3px;}
+    html{ scroll-behavior: smooth; }
+    :focus-visible{ outline: 2px solid var(--soft-orange); outline-offset: 2px;}
+  </style>
+</head>
+<body>
+  <div class="grid" aria-hidden="true"></div>
+
+  <header class="container">
+    <a class="brand" href="#">
+      <span class="logo" aria-hidden="true"></span>
+      <span>Sistem Global</span>
+    </a>
+    <nav>
+      <!-- onclick eklendi -->
+      <a class="cta ghost" href="#asistan" onclick="openWidget()">Konuşmayı Başlat</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div>
+        <span class="eyebrow"><span class="pulse" aria-hidden="true"></span> Yapay Zeka Destekli • Sesli Görüşme</span>
+        <h1><span class="uline">Sistem Global Sesli Asistan</span></h1>
+        <p class="subtitle">
+          Gelir vergisi beyannamenizle ilgili sorularınızı <strong>doğal konuşma</strong> ile yanıtlayan,
+          mevzuat ve süreç adımlarında size <strong>adım adım rehberlik eden</strong> akıllı bir asistan.
+          Hazırlık, kontrol ve gönderim aşamalarında <em>her an yanınızda.</em>
+        </p>
+
+        <div class="badgebar" role="list" aria-label="Öne çıkan kabiliyetler">
+          <span class="badge" role="listitem">Beyanname Rehberi</span>
+          <span class="badge" role="listitem">Sesli & Metin Etkileşimi</span>
+          <span class="badge" role="listitem">Hızlı Kontrol Listeleri</span>
+          <span class="badge" role="listitem">Takvim & Son Tarih Uyarıları</span>
+        </div>
+
+        <div class="widget-actions" style="margin-top:18px;">
+          <!-- onclick eklendi -->
+          <a class="cta" href="#asistan" onclick="openWidget()">Hemen Dene</a>
+          <a class="cta ghost" href="#ozellikler">Özelliklere Göz At</a>
+        </div>
+      </div>
+
+      <!-- Widget panel -->
+      <div id="asistan" class="panel">
+        <div class="widget-wrap">
+          <div>
+            <div class="kicker">Canlı Demo</div>
+            <h2 style="margin:6px 0 8px;">Gelir Vergisi Beyannamesi Asistanı</h2>
+            <p class="subtitle" style="margin:0 0 12px;">
+              “Gelir vergisi beyannamesi nasıl hazırlanır?”, “Hangi belgeler lazım?”,
+              “İstisna & indirimlerim neler?” gibi sorularınızı <strong>sesli</strong> sorabilirsiniz.
+            </p>
+          </div>
+
+          <!-- id eklendi -->
+          <elevenlabs-convai id="convaiWidget" agent-id="agent_5601k31jcv3ffqxbyj4dvazjk0af"></elevenlabs-convai>
+          <script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript"></script>
+
+          <div class="badgebar">
+            <span class="badge">Türkiye mevzuat odaklı</span>
+            <span class="badge">İnsan sesi kalitesinde TTS</span>
+            <span class="badge">Anlık takip soruları</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="ozellikler" style="margin-top: 14px;">
+      <div class="features">
+        <article class="feature">
+          <div class="kicker">Doğal Diyalog</div>
+          <h3>Konuş, dinlesin; yaz, cevaplasın</h3>
+          <p style="color:var(--muted)">
+            Mikrofonunuzu açıp serbestçe konuşun. Asistan niyetinizi algılar, gerekli bilgileri ister ve
+            karmaşık adımları anlaşılır biçimde özetler.
+          </p>
+        </article>
+
+        <article class="feature">
+          <div class="kicker">Vergi Süreci</div>
+          <h3>Beyannameyi adım adım</h3>
+          <p style="color:var(--muted)">
+            Beyan türü seçimi, gelir kalemleri, istisna/indirimler, matrah hesaplama ve onay aşamalarında
+            size uygun bir yol haritası sunar.
+          </p>
+        </article>
+
+        <article class="feature">
+          <div class="kicker">Güven & Hız</div>
+          <h3>Güncel, anlaşılır, hızlı</h3>
+          <p style="color:var(--muted)">
+            Özetlenen kontrol listeleri ve örnek cevaplarla zaman kazandırır; eksik belge riskini azaltır.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <footer class="container">
+      © <script>document.write(new Date().getFullYear())</script> Sistem Global • Sesli Asistan Tanıtım Sayfası
+    </footer>
+  </main>
+
+  <!-- JS ekleme -->
+  <script>
+    function openWidget() {
+      const widget = document.getElementById("convaiWidget");
+      if (widget && typeof widget.open === "function") {
+        widget.open();
+      }
+    }
+  </script>
+</body>
+</html>
